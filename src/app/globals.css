@@ -1,0 +1,339 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+  --font-inter: 'Inter', system-ui, sans-serif;
+  --font-barlow: 'Barlow Condensed', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  /* THÈME CLAIR PREMIUM — accent bleu technique */
+  --accent:    #FF6600;
+  --accent-cyan: #0E9BB5;
+
+  /* Fonds — du plus clair au plus contrasté */
+  --bg-base:   #F7F9FC;  /* fond principal — blanc cassé bleuté */
+  --bg-alt:    #EDF1F7;  /* fond alterné */
+  --bg-raised: #F2F5F9;  /* blocs légèrement contrastés */
+  --bg-card:   #FFFFFF;  /* cartes, panneaux — blanc pur */
+
+  /* Bordures */
+  --border-strong:  #AEB9C8;
+  --border-default: #CDD6E1;
+  --border-subtle:  #E1E7EF;
+
+  /* Textes — anthracite bleuté */
+  --text-primary:   #15233A;  /* titres — bleu nuit profond */
+  --text-secondary: #3A4A63;  /* corps de texte */
+  --text-tertiary:  #5A6B82;  /* métadonnées, tags */
+  --text-muted:     #677488;  /* placeholders, désactivé */
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  overflow-x: hidden;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-inter);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+/* Shimmer */
+@keyframes shimmer-slide {
+  to { transform: translate(calc(100cqw - 100%), 0); }
+}
+@keyframes spin-around {
+  0%          { transform: translateZ(0) rotate(0); }
+  15%, 35%    { transform: translateZ(0) rotate(90deg); }
+  65%, 85%    { transform: translateZ(0) rotate(270deg); }
+  100%        { transform: translateZ(0) rotate(360deg); }
+}
+.animate-shimmer-slide { animation: shimmer-slide var(--speed) ease-in-out infinite alternate; }
+.animate-spin-around   { animation: spin-around calc(var(--speed) * 2) infinite linear; }
+
+/* Sélection */
+::selection {
+  background: rgba(255, 102, 0, 0.18);
+  color: #15233A;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar       { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-alt); }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* Focus */
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Accessibilité : respect de prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* ──────────────────────────────────────────────────────────
+   Pictogrammes services — micro-animations discrètes au survol
+   Déclenchées par .group:hover de la carte parente.
+   Toutes neutralisées par prefers-reduced-motion (bloc plus bas).
+   ────────────────────────────────────────────────────────── */
+
+/* 01 CVC — flux d'air qui glisse latéralement */
+@keyframes svc-flow-move {
+  0%   { transform: translateX(0); opacity: 1; }
+  50%  { transform: translateX(2px); opacity: 0.7; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+.group:hover .svc-flow { animation: svc-flow-move 1.6s ease-in-out infinite; }
+
+/* 02 Plomberie — goutte/flux qui pulse le long du tuyau (translation robuste) */
+@keyframes svc-drop-move {
+  0%   { opacity: 0; transform: translate(0, 0); }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { opacity: 0.2; transform: translate(11px, 8px); }
+}
+.group:hover .svc-drop {
+  transform-box: fill-box;
+  animation: svc-drop-move 1.8s ease-in-out infinite;
+}
+
+/* 03 ECS — boucle de recirculation qui se trace */
+.svc-loop { stroke-dasharray: 64; stroke-dashoffset: 0; }
+@keyframes svc-loop-trace {
+  from { stroke-dashoffset: 64; }
+  to   { stroke-dashoffset: 0; }
+}
+.group:hover .svc-loop { animation: svc-loop-trace 1.4s ease-out; }
+
+/* 04 Ventilation — rotor en légère rotation continue lente */
+@keyframes svc-rotor-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.group:hover .svc-rotor { animation: svc-rotor-spin 3.2s linear infinite; }
+
+/* 05 Thermique — jauge qui se remplit */
+.svc-gauge { transform-origin: bottom; transform: scaleY(1); }
+@keyframes svc-gauge-fill {
+  0%   { transform: scaleY(0.2); }
+  100% { transform: scaleY(1); }
+}
+.group:hover .svc-gauge { animation: svc-gauge-fill 1.2s ease-out; }
+
+/* 06 PAC — onde d'échange thermique qui pulse */
+@keyframes svc-pulse-move {
+  0%, 100% { opacity: 0.4; transform: translateX(0); }
+  50%      { opacity: 1; transform: translateX(1.5px); }
+}
+.group:hover .svc-pulse { animation: svc-pulse-move 1.5s ease-in-out infinite; }
+
+/* 07 Électricité — impulsion (éclair) qui clignote doucement */
+.svc-bolt { stroke-dasharray: 16; stroke-dashoffset: 0; }
+@keyframes svc-bolt-trace {
+  0%   { stroke-dashoffset: 16; opacity: 0.3; }
+  60%  { stroke-dashoffset: 0; opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 1; }
+}
+.group:hover .svc-bolt { animation: svc-bolt-trace 1.1s ease-out; }
+
+/* 08 Études — ligne de cotation qui se trace */
+.svc-measure { stroke-dasharray: 12; stroke-dashoffset: 0; }
+@keyframes svc-measure-trace {
+  from { stroke-dashoffset: 12; }
+  to   { stroke-dashoffset: 0; }
+}
+.group:hover .svc-measure { animation: svc-measure-trace 0.9s ease-out; }
+
+/* 09 Assistance — coche de validation qui se trace */
+.svc-check { stroke-dasharray: 22; stroke-dashoffset: 0; }
+@keyframes svc-check-trace {
+  from { stroke-dashoffset: 22; }
+  to   { stroke-dashoffset: 0; }
+}
+.group:hover .svc-check { animation: svc-check-trace 0.7s ease-out; }
+
+/* Accessibilité : désactivation complète des animations d'icônes */
+@media (prefers-reduced-motion: reduce) {
+  .group:hover .svc-flow,
+  .group:hover .svc-drop,
+  .group:hover .svc-loop,
+  .group:hover .svc-rotor,
+  .group:hover .svc-gauge,
+  .group:hover .svc-pulse,
+  .group:hover .svc-bolt,
+  .group:hover .svc-measure,
+  .group:hover .svc-check {
+    animation: none !important;
+  }
+}
+
+/* Animations additionnelles (ECS circulation, signal CFA, flocon froid) */
+
+/* ECS — point qui circule le long de la boucle */
+@keyframes svc-circulate-move {
+  0%   { opacity: 0; transform: translateY(-6px); }
+  25%  { opacity: 1; }
+  75%  { opacity: 1; }
+  100% { opacity: 0; transform: translateY(6px); }
+}
+.group:hover .svc-circulate { animation: svc-circulate-move 1.8s ease-in-out infinite; }
+
+/* Électricité CFA — ondes de signal qui apparaissent */
+.svc-signal path { stroke-dasharray: 14; stroke-dashoffset: 0; }
+@keyframes svc-signal-pulse {
+  0%   { opacity: 0.3; stroke-dashoffset: 14; }
+  60%  { opacity: 1; stroke-dashoffset: 0; }
+  100% { opacity: 0.3; stroke-dashoffset: 14; }
+}
+.group:hover .svc-signal path { animation: svc-signal-pulse 1.8s ease-in-out infinite; }
+
+/* Froid — flocon en rotation lente + légère pulsation */
+@keyframes svc-snow-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.group:hover .svc-snow { animation: svc-snow-spin 6s linear infinite; }
+
+/* Neutralisation reduced-motion pour les nouvelles animations */
+@media (prefers-reduced-motion: reduce) {
+  .group:hover .svc-circulate,
+  .group:hover .svc-signal path,
+  .group:hover .svc-snow {
+    animation: none !important;
+  }
+}
+
+/* Pictogramme hero des pages d'expertise : animations actives en continu (sobres) */
+.svc-hero-icon .svc-flow { animation: svc-flow-move 2.4s ease-in-out infinite; }
+.svc-hero-icon .svc-rotor { animation: svc-rotor-spin 5s linear infinite; }
+.svc-hero-icon .svc-snow { animation: svc-snow-spin 8s linear infinite; }
+.svc-hero-icon .svc-drop { animation: svc-drop-move 2.4s ease-in-out infinite; }
+.svc-hero-icon .svc-loop { animation: svc-loop-trace 2s ease-out infinite alternate; }
+.svc-hero-icon .svc-circulate { animation: svc-circulate-move 2.4s ease-in-out infinite; }
+.svc-hero-icon .svc-pulse { animation: svc-pulse-move 2s ease-in-out infinite; }
+.svc-hero-icon .svc-bolt { animation: svc-bolt-trace 2s ease-out infinite; }
+.svc-hero-icon .svc-gauge { animation: svc-gauge-fill 2.4s ease-in-out infinite alternate; }
+.svc-hero-icon .svc-signal path { animation: svc-signal-pulse 2.4s ease-in-out infinite; }
+.svc-hero-icon .svc-measure { animation: svc-measure-trace 2.4s ease-out infinite alternate; }
+.svc-hero-icon .svc-check { animation: svc-check-trace 2.4s ease-out infinite alternate; }
+
+@media (prefers-reduced-motion: reduce) {
+  .svc-hero-icon .svc-flow, .svc-hero-icon .svc-rotor, .svc-hero-icon .svc-snow,
+  .svc-hero-icon .svc-drop, .svc-hero-icon .svc-loop, .svc-hero-icon .svc-circulate,
+  .svc-hero-icon .svc-pulse, .svc-hero-icon .svc-bolt, .svc-hero-icon .svc-gauge,
+  .svc-hero-icon .svc-signal path, .svc-hero-icon .svc-measure, .svc-hero-icon .svc-check {
+    animation: none !important;
+  }
+}
+
+/* Plomberie — flux d'eau le long du collecteur + goutte au siphon */
+@keyframes svc-flowdot-move {
+  0%   { transform: translateX(0); opacity: 0; }
+  15%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { transform: translateX(20px); opacity: 0; }
+}
+@keyframes svc-drop2-fall {
+  0%   { transform: translateY(-3px); opacity: 0; }
+  30%  { opacity: 1; }
+  100% { transform: translateY(2px); opacity: 0; }
+}
+.group:hover .svc-flowdot { animation: svc-flowdot-move 1.8s linear infinite; }
+.group:hover .svc-drop2   { animation: svc-drop2-fall 1.8s ease-in 0.4s infinite; }
+
+/* Pictogramme hero des pages d'expertise : flux plomberie en continu */
+.svc-hero-icon .svc-flowdot { animation: svc-flowdot-move 2.4s linear infinite; }
+.svc-hero-icon .svc-drop2   { animation: svc-drop2-fall 2.4s ease-in 0.6s infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .group:hover .svc-flowdot,
+  .group:hover .svc-drop2,
+  .svc-hero-icon .svc-flowdot,
+  .svc-hero-icon .svc-drop2 {
+    animation: none !important;
+  }
+}
+
+/* Fiabilité des transforms sur éléments SVG */
+.svc-flowdot, .svc-drop2 { transform-box: fill-box; transform-origin: center; }
+
+/* Performance — arc de jauge qui se trace */
+.svc-gaugearc { stroke-dasharray: 30; stroke-dashoffset: 0; }
+@keyframes svc-gaugearc-trace {
+  from { stroke-dashoffset: 30; }
+  to   { stroke-dashoffset: 0; }
+}
+.group:hover .svc-gaugearc { animation: svc-gaugearc-trace 1.2s ease-out; }
+.svc-hero-icon .svc-gaugearc { animation: svc-gaugearc-trace 2.4s ease-out infinite alternate; }
+@media (prefers-reduced-motion: reduce) {
+  .group:hover .svc-gaugearc, .svc-hero-icon .svc-gaugearc { animation: none !important; }
+}
+
+/* ─── Logo OSARIS — animation sobre et premium ───────────────────────── */
+/* Apparition progressive au chargement */
+@keyframes logo-fade-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.logo-anim {
+  animation: logo-fade-in 0.7s ease-out both;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+/* Micro-élévation + halo discret au survol */
+.logo-anim:hover {
+  transform: translateY(-1px);
+  filter: drop-shadow(0 3px 10px rgba(255, 102, 0, 0.22));
+}
+
+/* Glyphe : conteneur du shine */
+.logo-glyph {
+  overflow: hidden;
+  border-radius: 5px;
+  transition: transform 0.3s ease;
+}
+.logo-anim:hover .logo-glyph {
+  transform: scale(1.04);
+}
+
+/* Balayage lumineux très subtil au survol */
+.logo-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: 5px;
+  background: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, 0.55) 50%, transparent 65%);
+  transform: translateX(-130%);
+  pointer-events: none;
+  opacity: 0;
+}
+.logo-anim:hover .logo-shine {
+  animation: logo-shine-sweep 0.9s ease-out;
+}
+@keyframes logo-shine-sweep {
+  0%   { transform: translateX(-130%); opacity: 0; }
+  20%  { opacity: 1; }
+  100% { transform: translateX(130%); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-anim { animation: none; }
+  .logo-anim:hover { transform: none; filter: none; }
+  .logo-anim:hover .logo-glyph { transform: none; }
+  .logo-anim:hover .logo-shine { animation: none; }
+}
