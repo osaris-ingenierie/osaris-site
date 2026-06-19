@@ -36,15 +36,12 @@ const moyens = [
 ];
 
 const specialites = [
-  { label: "Chauffage & climatisation",             slug: "chauffage-climatisation",                    icon: "M4 14 Q8 8 12 12 Q16 16 20 10" },
+  { label: "Chauffage & hydraulique chaufferie / sous-station", slug: "chauffage-climatisation",       icon: "M4 14 Q8 8 12 12 Q16 16 20 10" },
+  { label: "Climatisation & rafraîchissement",       slug: "climatisation-rafraichissement",            icon: "M12 3 V21 M3 12 H21 M6 6 L18 18 M18 6 L6 18" },
   { label: "Ventilation & traitement d'air",         slug: "ventilation-traitement-air",                 icon: "M3 11 L9 11 M9 11 L9 6 M9 11 L9 16 M15 11 L21 11 M15 11 L15 6 M15 11 L15 16" },
-  { label: "Plomberie & réseaux sanitaires",         slug: "plomberie-reseaux-sanitaires",               icon: "M12 3 C12 3 7 8 7 13 A5 5 0 0 0 17 13 C17 8 12 3 12 3Z" },
-  { label: "Production ECS & bouclage",              slug: "production-ecs-bouclage",                    icon: "M8 4 L8 16 M8 10 L16 10 M16 4 L16 16" },
-  { label: "Thermique réglementaire RE2020 & RT Existant",  slug: "thermique-reglementaire-re2020-rt-existant",         icon: "M3 17 L6 11 L10 14 L14 8 L18 11 L21 5" },
-  { label: "Déperditions NF EN 12831 & STD",  slug: "calcul-deperditions-nf-en-12831-std",         icon: "M4 5 H14 V19 H4 Z M4 12 H14 M9 5 V19 M18 7 V15 M18 17 a1.5 1.5 0 1 0 0.01 0" },
-  { label: "Performance énergétique",                slug: "performance-energetique",                    icon: "M3 12 A9 9 0 1 1 21 12 A9 9 0 0 1 3 12 M12 7 L12 12 L15 15" },
-  { label: "Hydraulique chaufferie & sous-station",  slug: "hydraulique-chaufferie-sous-station",         icon: "M4 8 Q8 4 12 8 Q16 12 20 8 M4 14 Q8 10 12 14 Q16 18 20 14" },
-  { label: "Génie électrique CFO/CFA",               slug: "genie-electrique-cfo-cfa",                    icon: "M5 5 L9 5 L9 9 L5 9 Z M15 5 L19 5 L19 9 L15 9 Z M5 15 L9 15 L9 19 L5 19 Z M9 7 L15 7 M9 17 L15 17 M17 9 L17 15" },
+  { label: "Plomberie sanitaire, production ECS & bouclage", slug: "plomberie-reseaux-sanitaires",        icon: "M12 3 C12 3 7 8 7 13 A5 5 0 0 0 17 13 C17 8 12 3 12 3Z" },
+  { label: "Thermique réglementaire, déperditions & performance énergétique", slug: "thermique-reglementaire-re2020-rt-existant", icon: "M3 17 L6 11 L10 14 L14 8 L18 11 L21 5" },
+  { label: "Génie électrique CFO/CFA, régulation, GTB & GTC", slug: "genie-electrique-cfo-cfa",           icon: "M5 5 L9 5 L9 9 L5 9 Z M15 5 L19 5 L19 9 L15 9 Z M5 15 L9 15 L9 19 L5 19 Z M9 7 L15 7 M9 17 L15 17 M17 9 L17 15" },
 ];
 
 export function AproposSection() {

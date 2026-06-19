@@ -140,7 +140,7 @@ export default function GuidesTechniquesPage() {
                   <BlurFade key={guide.slug} delay={i * 0.04} inView duration={0.4} className="h-full">
                     <Link
                       href={`/guides-techniques/${guide.slug}`}
-                      className="group h-full flex flex-col bg-night-800 p-6 rounded-xl border border-night-700 shadow-card hover:shadow-card-hover hover:border-brand-orange/30 hover:-translate-y-1 transition-all duration-300"
+                      className="group relative h-full flex flex-col bg-night-800 p-6 rounded-xl border border-night-700 shadow-card hover:shadow-card-hover hover:border-brand-orange/40 hover:-translate-y-1 transition-all duration-300 before:absolute before:inset-[5px] before:rounded-lg before:border before:border-night-700/60 before:pointer-events-none before:transition-colors before:duration-300 group-hover:before:border-brand-orange/20"
                     >
                       <span className="svc-hero-icon inline-flex items-center justify-center w-12 h-12 rounded-lg bg-night-850 border border-night-700 text-brand-orange group-hover:border-brand-orange/30 group-hover:bg-brand-orange/[0.06] transition-all duration-300 mb-5">
                         <Icon />
@@ -148,9 +148,16 @@ export default function GuidesTechniquesPage() {
                       <h2 className="font-display font-bold text-xl text-night-100 group-hover:text-night-50 transition-colors mb-2.5 leading-snug">
                         {guide.title}
                       </h2>
-                      <p className="text-night-200 text-sm leading-relaxed mb-5 flex-1">
+                      <p className="text-night-200 text-sm leading-relaxed mb-4 flex-1">
                         {guide.desc}
                       </p>
+                      <div className="flex flex-wrap gap-1.5 mb-4">
+                        {guide.tags.map((tag) => (
+                          <span key={tag} className="font-mono text-[0.58rem] tracking-wider uppercase px-2 py-0.5 bg-night-850 text-night-300 border border-night-700 rounded group-hover:border-brand-orange/40 group-hover:text-brand-orange-dark transition-all duration-300">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
                       <span className="inline-flex items-center gap-1.5 font-mono text-[0.65rem] tracking-widest uppercase text-brand-orange-dark mt-auto">
                         {guide.cta}
                         <svg width="12" height="12" viewBox="0 0 14 14" fill="none" className="transition-transform duration-200 group-hover:translate-x-1">

@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 const stats = [
   { value: 20, suffix: "+", label: "Ans d'expérience" },
   { value: 300, suffix: "+", label: "Projets réalisés" },
-  { value: 5, suffix: "", label: "Domaines techniques" },
+  { value: 6, suffix: "+", label: "Domaines techniques" },
   { value: 10, suffix: "+", label: "Ans d'activité (2016)" },
 ];
 

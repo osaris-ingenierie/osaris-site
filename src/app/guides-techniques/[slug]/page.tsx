@@ -5,6 +5,11 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { NumberedCardGrid } from "@/components/ui/numbered-card-grid";
+import { ChauffageProductionThermique } from "@/components/sections/chauffage-production-thermique";
+import { VentilationTraitementAir } from "@/components/sections/ventilation-traitement-air";
+import { ThermiquePerformanceEnergetique } from "@/components/sections/thermique-performance-energetique";
+import { GenieElectriqueRegulationGtb } from "@/components/sections/genie-electrique-regulation-gtb";
+import { PlomberieSanitaireEcs } from "@/components/sections/plomberie-sanitaire-ecs";
 import { guides, getGuideBySlug } from "@/lib/guides-data";
 
 const SITE_URL = "https://www.osaris-ingenierie.com";
@@ -19,17 +24,43 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!guide) return { title: "Guide introuvable" };
 
   const url = `${SITE_URL}/guides-techniques/${guide.slug}`;
+
+  // Métadonnées enrichies pour le guide chauffage (chaufferies gaz & sous-stations)
+  const isChauffage = guide.slug === "chauffage";
+  const isVentilation = guide.slug === "ventilation";
+  const isThermique = guide.slug === "thermique-performance-energetique";
+  const isGenieElec = guide.slug === "genie-electrique-regulation-gtb-gtc";
+  const isPlomberie = guide.slug === "plomberie-sanitaire-ecs";
+  let title = guide.guideTitle;
+  let description = guide.intro;
+  if (isChauffage) {
+    title = "Guide chauffage : chaufferies gaz, sous-stations et production thermique";
+    description = "OSARIS Ingénierie présente les principes de conception des chaufferies gaz et sous-stations raccordées aux réseaux de chauffage urbain : dimensionnement, hydraulique, régulation, CCTP, exécution, réception et DOE.";
+  } else if (isVentilation) {
+    title = "Guide ventilation : VMC, CTA, traitement d'air et qualité d'air intérieur";
+    description = "OSARIS Ingénierie présente les principes de conception des installations de ventilation : VMC simple flux, VMC hygroréglable, double flux, CTA, réseaux aérauliques, qualité d'air intérieur, acoustique, régulation, exécution, réception et DOE.";
+  } else if (isThermique) {
+    title = "Guide thermique du bâtiment et performance énergétique";
+    description = "OSARIS Ingénierie présente les principes de la thermique du bâtiment et de la performance énergétique : déperditions, RE2020, RT Existant, STD, confort d'été, enveloppe, systèmes techniques, rénovation énergétique, exécution et DOE.";
+  } else if (isGenieElec) {
+    title = "Guide génie électrique, régulation, GTB et GTC";
+    description = "OSARIS Ingénierie présente les principes du génie électrique appliqué aux équipements CVC, de la régulation, de la GTB et de la GTC : armoires électriques, automatismes, comptage, listes de points, télégestion, exécution, réception et DOE.";
+  } else if (isPlomberie) {
+    title = "Guide plomberie sanitaire, ECS & eaux pluviales";
+    description = "OSARIS Ingénierie présente les principes de conception des installations de plomberie sanitaire : eau froide, production ECS, bouclage ECS, évacuations EU/EV, eaux pluviales EP, appareils sanitaires, disconnexion, comptage, exécution, réception et DOE.";
+  }
+
   return {
-    title: guide.guideTitle,
-    description: guide.intro,
+    title,
+    description,
     alternates: { canonical: url },
     openGraph: {
       type: "article",
       locale: "fr_FR",
       url,
       siteName: "OSARIS Ingénierie",
-      title: `${guide.guideTitle} | OSARIS Ingénierie`,
-      description: guide.intro,
+      title: `${title} | OSARIS Ingénierie`,
+      description,
     },
   };
 }
@@ -95,7 +126,7 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
                     Guide technique
                   </div>
                   <h1 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl text-night-50 leading-tight">
-                    {guide.guideTitle}
+                    {guide.title}
                   </h1>
                 </div>
               </div>
@@ -106,6 +137,14 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
                 {guide.intro}
               </p>
             </BlurFade>
+
+            {guide.desc && guide.desc !== guide.intro && (
+              <BlurFade delay={0.2} duration={0.5}>
+                <p className="text-night-300 text-sm sm:text-base leading-[1.75] mt-5 pl-4 border-l-2 border-brand-orange/40">
+                  {guide.desc}
+                </p>
+              </BlurFade>
+            )}
           </div>
         </section>
 
@@ -153,6 +192,21 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
             <NumberedCardGrid eyebrow="Erreurs fréquentes à éviter" items={guide.detail.erreurs} />
           </div>
         </section>
+
+        {/* ── Contenu spécifique : chaufferies gaz & sous-stations (guide chauffage) ── */}
+        {guide.slug === "chauffage" && <ChauffageProductionThermique />}
+
+        {/* ── Contenu spécifique : ventilation & qualité d'air (guide ventilation) ── */}
+        {guide.slug === "ventilation" && <VentilationTraitementAir />}
+
+        {/* ── Contenu spécifique : thermique & performance énergétique ── */}
+        {guide.slug === "thermique-performance-energetique" && <ThermiquePerformanceEnergetique />}
+
+        {/* ── Contenu spécifique : génie électrique, régulation, GTB & GTC ── */}
+        {guide.slug === "genie-electrique-regulation-gtb-gtc" && <GenieElectriqueRegulationGtb />}
+
+        {/* ── Contenu spécifique : plomberie sanitaire, ECS & eaux pluviales ── */}
+        {guide.slug === "plomberie-sanitaire-ecs" && <PlomberieSanitaireEcs />}
 
         {/* ── 6. Accompagnement OSARIS ── */}
         <section className="py-14">

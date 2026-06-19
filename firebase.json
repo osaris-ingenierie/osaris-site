@@ -9,6 +9,18 @@
     "cleanUrls": true,
     "trailingSlash": true,
     "rewrites": [],
+    "redirects": [
+      { "source": "/guides-techniques/plomberie-sanitaire", "destination": "/guides-techniques/plomberie-sanitaire-ecs", "type": 301 },
+      { "source": "/guides-techniques/eau-chaude-sanitaire", "destination": "/guides-techniques/plomberie-sanitaire-ecs", "type": 301 },
+      { "source": "/guides-techniques/thermique-du-batiment", "destination": "/guides-techniques/thermique-performance-energetique", "type": 301 },
+      { "source": "/guides-techniques/performance-energetique", "destination": "/guides-techniques/thermique-performance-energetique", "type": 301 },
+      { "source": "/guides-techniques/genie-electrique", "destination": "/guides-techniques/genie-electrique-regulation-gtb-gtc", "type": 301 },
+      { "source": "/guides-techniques/regulation-gtb-gtc", "destination": "/guides-techniques/genie-electrique-regulation-gtb-gtc", "type": 301 },
+      { "source": "/services/production-ecs-bouclage", "destination": "/services/plomberie-reseaux-sanitaires", "type": 301 },
+      { "source": "/services/calcul-deperditions-nf-en-12831-std", "destination": "/services/thermique-reglementaire-re2020-rt-existant", "type": 301 },
+      { "source": "/services/performance-energetique", "destination": "/services/thermique-reglementaire-re2020-rt-existant", "type": 301 },
+      { "source": "/services/hydraulique-chaufferie-sous-station", "destination": "/services/chauffage-climatisation", "type": 301 }
+    ],
     "headers": [
       {
         "source": "**/*.@(js|css)",

@@ -1,10 +1,9 @@
 import Link from "next/link";
 
 const navItems = [
-  { label: "Services",       href: "/services" },
+  { label: "Expertises",      href: "/services" },
   { label: "Références",      href: "/references" },
   { label: "Méthodologie",    href: "/methodologie" },
-  { label: "Guides techniques", href: "/guides-techniques" },
   { label: "À propos",        href: "/a-propos" },
   { label: "Contact",         href: "/contact" },
 ];

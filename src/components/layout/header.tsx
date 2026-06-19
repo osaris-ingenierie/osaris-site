@@ -5,10 +5,9 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { href: "/services", label: "Services" },
+  { href: "/services", label: "Expertises" },
   { href: "/references", label: "Références" },
   { href: "/methodologie", label: "Méthodologie" },
-  { href: "/guides-techniques", label: "Guides techniques" },
   { href: "/a-propos", label: "À propos" },
   { href: "/contact", label: "Contact" },
 ];

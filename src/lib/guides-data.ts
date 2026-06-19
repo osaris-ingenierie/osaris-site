@@ -1,6 +1,6 @@
 import {
-  IconCVC, IconVentilation, IconPlomberie, IconECS, IconThermique,
-  IconPerformance, IconElectricite, IconHydraulique,
+  IconCVC, IconVentilation, IconPlomberie, IconThermique,
+  IconElectricite,
 } from "@/components/ui/service-icons";
 import type { ComponentType } from "react";
 
@@ -19,6 +19,7 @@ export interface Guide {
   desc: string;
   cta: string;
   intro: string;
+  tags: string[];
   Icon: ComponentType<{ className?: string }>;
   detail: GuideSection;
 }
@@ -26,72 +27,115 @@ export interface Guide {
 export const guides: Guide[] = [
   {
     slug: "chauffage",
-    title: "Chauffage",
-    guideTitle: "Guide technique chauffage",
-    desc: "Comprendre le dimensionnement d'une installation de chauffage : calcul des puissances, choix des émetteurs, régime d'eau, équilibrage hydraulique, pompes, vannes, pertes de charge et optimisation énergétique.",
-    cta: "Lire le guide chauffage",
+    title: "Guide Chauffage & Hydraulique",
+    guideTitle: "Guide chauffage & hydraulique chaufferie / sous-station",
+    desc: "Comprendre les principes de conception des installations de chauffage collectif : chaufferies gaz, sous-stations raccordées aux réseaux de chauffage urbain, échangeurs, réseaux hydrauliques, collecteurs, pompes, maintien de pression, traitement d'eau, régulation et équilibrage. Ce guide présente les points clés à vérifier en conception, en rénovation, en exécution et lors de la réception technique.",
+    cta: "Consulter le guide chauffage",
     intro:
-      "Le chauffage assure le confort thermique des occupants en période froide. Son dimensionnement nécessite une analyse des déperditions, du régime de température, des émetteurs, des débits, des pertes de charge et de l'équilibrage hydraulique.",
+      "Le chauffage assure le confort thermique des occupants en période froide. Sa conception couvre la production thermique (chaufferies gaz, sous-stations de chauffage urbain), l'hydraulique de distribution, l'équilibrage, le maintien de pression, le traitement d'eau et la régulation, en neuf comme en rénovation.",
+    tags: ["Chaufferie gaz", "Sous-station", "Réseau de chaleur", "Hydraulique", "Équilibrage", "DOE"],
     Icon: IconCVC,
     detail: {
       definition:
-        "Le chauffage regroupe l'ensemble des équipements assurant la production, la distribution et l'émission de chaleur dans un bâtiment. Une installation performante repose sur un dimensionnement précis, adapté aux besoins réels et au régime de température choisi.",
+        "Le chauffage regroupe l'ensemble des équipements assurant la production, la distribution et l'émission de chaleur dans un bâtiment. Une installation performante repose sur un dimensionnement précis, une hydraulique cohérente, un traitement d'eau adapté et une régulation maîtrisée, de la chaufferie gaz à la sous-station raccordée à un réseau de chaleur.",
       role: [
         "Garantir le confort thermique des occupants en hiver",
-        "Limiter les consommations énergétiques",
-        "Assurer la durabilité et la fiabilité des équipements",
-        "Faciliter l'exploitation et la maintenance",
+        "Produire la chaleur (chaufferie gaz ou sous-station de chauffage urbain)",
+        "Distribuer et équilibrer l'eau chaude dans les réseaux hydrauliques",
+        "Limiter les consommations et faciliter l'exploitation",
       ],
       equipements: [
-        "Production : chaudières, pompes à chaleur, sous-stations",
-        "Distribution : réseaux hydrauliques, collecteurs, circulateurs",
-        "Émetteurs : radiateurs, planchers chauffants, ventilo-convecteurs",
-        "Organes de réglage : vannes d'équilibrage, vannes thermostatiques",
-        "Régulation : sondes, lois d'eau, programmation",
+        "Production : chaudières gaz, sous-stations, échangeurs à plaques",
+        "Distribution : collecteurs, réseaux hydrauliques, circulateurs",
+        "Équilibrage : vannes d'équilibrage, organes de réglage",
+        "Maintien de pression, vases d'expansion, traitement d'eau",
+        "Régulation : sondes, lois d'eau, cascade chaudières, télégestion",
       ],
       vigilance: [
-        "Calcul des déperditions selon NF EN 12831",
-        "Cohérence entre le régime d'eau et les émetteurs",
-        "Équilibrage hydraulique des circuits",
-        "Dimensionnement des pompes et maîtrise des pertes de charge",
-        "Compatibilité avec une production basse température (PAC)",
+        "Dimensionnement de la production et des puissances utiles",
+        "Cohérence hydraulique : débits, ΔT, pertes de charge, découplage",
+        "Équilibrage des circuits et stabilité de la pression différentielle",
+        "Traitement d'eau : protection contre embouage, corrosion, entartrage",
+        "Sécurité gaz, fumisterie et ventilation des locaux (chaufferies)",
       ],
       erreurs: [
         "Surdimensionnement des générateurs, source de surcoût et de cycles courts",
         "Absence d'équilibrage entraînant des inconforts par zone",
-        "Régime d'eau inadapté aux émetteurs existants en rénovation",
-        "Pompes mal sélectionnées et consommations électriques excessives",
+        "Hydraulique incohérente dégradant la condensation et la régulation",
+        "Traitement d'eau négligé, réduisant la durée de vie des équipements",
+      ],
+    },
+  },
+  {
+    slug: "climatisation",
+    title: "Guide Climatisation & Rafraîchissement",
+    guideTitle: "Guide climatisation & rafraîchissement",
+    desc: "Comprendre les principaux systèmes de climatisation et de rafraîchissement : split, multi-split, DRV/VRV, groupes d'eau glacée, pompes à chaleur réversibles, ventilo-convecteurs, rooftops et CTA avec batterie froide. Ce guide aborde le dimensionnement des puissances frigorifiques, les réseaux frigorifiques ou hydrauliques, les condensats, l'acoustique, la régulation et l'accessibilité maintenance.",
+    cta: "Consulter le guide climatisation",
+    intro:
+      "La climatisation assure le confort d'été et la maîtrise des températures intérieures. Elle nécessite une attention particulière sur les puissances frigorifiques, les systèmes (détente directe ou eau glacée), les condensats, l'acoustique, la régulation et l'intégration architecturale.",
+    tags: ["Climatisation", "DRV / VRV", "Eau glacée", "PAC réversible", "Condensats", "Acoustique"],
+    Icon: IconCVC,
+    detail: {
+      definition:
+        "La climatisation traite la température et parfois l'hygrométrie des locaux en période chaude. Les systèmes à détente directe (splits, DRV/VRV) ou à eau glacée sont sélectionnés selon les besoins, les contraintes du bâtiment et les objectifs de confort.",
+      role: [
+        "Assurer le confort d'été et la maîtrise des températures",
+        "Répondre aux besoins de locaux spécifiques (serveurs, ERP)",
+        "Maîtriser la consommation énergétique du rafraîchissement",
+        "S'intégrer dans l'architecture et l'acoustique du bâtiment",
+      ],
+      equipements: [
+        "Splits, multi-splits et systèmes DRV / VRV",
+        "Groupes d'eau glacée et pompes à chaleur réversibles",
+        "Ventilo-convecteurs, rooftops, CTA avec batterie froide",
+        "Réseaux frigorifiques et réseaux d'eau glacée",
+        "Évacuation des condensats, régulation et gestion centralisée",
+      ],
+      vigilance: [
+        "Dimensionnement des puissances frigorifiques et apports internes",
+        "Évacuation fiable des condensats",
+        "Contraintes acoustiques des unités extérieures et groupes froids",
+        "Intégration architecturale et accessibilité maintenance",
+        "Choix et traçabilité des fluides frigorigènes",
+      ],
+      erreurs: [
+        "Sous-dimensionnement ou surdimensionnement des unités",
+        "Évacuation des condensats négligée, source de désordres",
+        "Nuisances sonores des groupes extérieurs mal anticipées",
+        "Conflits chaud/froid faute de régulation cohérente",
       ],
     },
   },
   {
     slug: "ventilation",
-    title: "Ventilation",
-    guideTitle: "Guide technique ventilation",
-    desc: "Découvrir les principes de ventilation des bâtiments : renouvellement d'air, extraction, soufflage, CTA, VMC, qualité d'air intérieur, acoustique, pertes de charge et contraintes de maintenance.",
-    cta: "Lire le guide ventilation",
+    title: "Guide Ventilation & Traitement d'Air",
+    guideTitle: "Guide ventilation & traitement d'air",
+    desc: "Comprendre les principes de conception des installations de ventilation : VMC simple flux, VMC hygroréglable, VMC double flux, ventilation tertiaire, CTA, extraction sanitaire, réseaux aérauliques, grilles, bouches et diffuseurs. Ce guide traite des débits d'air, des pertes de charge, de l'équilibrage aéraulique, de l'acoustique, de la qualité d'air intérieur, de la régulation et de la réception des installations.",
+    cta: "Consulter le guide ventilation",
     intro:
-      "La ventilation permet de renouveler l'air intérieur, d'évacuer les polluants, l'humidité et les odeurs, tout en garantissant une qualité d'air adaptée aux usages du bâtiment.",
+      "La ventilation assure le renouvellement de l'air intérieur, l'évacuation de l'humidité, des odeurs et des polluants, tout en participant au confort thermique et à la qualité d'air intérieur. Sa conception doit être adaptée à l'usage des locaux et garantir des débits maîtrisés, un fonctionnement silencieux et une consommation optimisée.",
+    tags: ["Ventilation", "VMC", "CTA", "Qualité d'air", "Réseaux aérauliques", "Équilibrage"],
     Icon: IconVentilation,
     detail: {
       definition:
-        "La ventilation assure le renouvellement de l'air intérieur d'un bâtiment. Elle évacue l'air vicié et apporte de l'air neuf, en simple flux ou en double flux avec récupération de chaleur, selon les usages et les exigences de performance.",
+        "La ventilation assure le renouvellement de l'air intérieur d'un bâtiment. Elle évacue l'air vicié et apporte de l'air neuf, en simple flux, hygroréglable ou double flux avec récupération de chaleur, selon les usages et les exigences de performance et de qualité d'air intérieur.",
       role: [
         "Maintenir une bonne qualité d'air intérieur",
         "Évacuer l'humidité, les polluants et les odeurs",
-        "Contribuer à la performance énergétique (double flux)",
+        "Contribuer à la performance énergétique (double flux, récupération)",
         "Assurer le confort et la santé des occupants",
       ],
       equipements: [
-        "VMC simple flux et double flux",
-        "Centrales de traitement d'air (CTA)",
+        "VMC simple flux autoréglable et hygroréglable",
+        "VMC double flux et centrales de traitement d'air (CTA)",
         "Réseaux de gaines, bouches d'extraction et de soufflage",
-        "Récupérateurs de chaleur et filtres",
-        "Caissons d'extraction et de désenfumage",
+        "Grilles de transfert, diffuseurs, registres et récupérateurs",
+        "Filtres, caissons d'extraction et pièges à son",
       ],
       vigilance: [
-        "Respect des débits réglementaires",
-        "Maîtrise des pertes de charge des réseaux",
+        "Respect des débits réglementaires ou fonctionnels",
+        "Maîtrise des pertes de charge et des vitesses d'air",
         "Traitement acoustique des CTA, extracteurs et terminaux",
         "Accessibilité pour la maintenance et le changement des filtres",
         "Équilibrage aéraulique des réseaux",
@@ -105,282 +149,125 @@ export const guides: Guide[] = [
     },
   },
   {
-    slug: "climatisation",
-    title: "Climatisation / DRV / VRV",
-    guideTitle: "Guide technique climatisation",
-    desc: "Comprendre les systèmes de climatisation : splits, multi-splits, DRV/VRV, unités intérieures et extérieures, évacuation des condensats, contraintes acoustiques et intégration architecturale.",
-    cta: "Lire le guide climatisation",
+    slug: "plomberie-sanitaire-ecs",
+    title: "Guide Plomberie & Sanitaires",
+    guideTitle: "Guide plomberie sanitaire, ECS & eaux pluviales",
+    desc: "Comprendre les principes de conception des installations de plomberie sanitaire : alimentation eau froide, production ECS, bouclage ECS, évacuations EU/EV, eaux pluviales EP, appareils sanitaires, comptage, disconnexion et protection sanitaire. Ce guide présente les points de vigilance liés aux débits, pressions, pertes de charge, températures ECS, temps d'attente, équilibrage du bouclage, pentes d'évacuation, descentes EP, acoustique, maintenance, essais et DOE.",
+    cta: "Consulter le guide plomberie",
     intro:
-      "La climatisation permet d'assurer le confort d'été et la maîtrise des températures intérieures. Elle nécessite une attention particulière sur les puissances frigorifiques, les unités intérieures et extérieures, les condensats, l'acoustique et l'intégration architecturale.",
-    Icon: IconCVC,
-    detail: {
-      definition:
-        "La climatisation traite la température et parfois l'hygrométrie des locaux en période chaude. Les systèmes à détente directe (splits, DRV/VRV) ou à eau glacée sont sélectionnés selon les besoins, les contraintes du bâtiment et les objectifs de confort.",
-      role: [
-        "Assurer le confort d'été et la maîtrise des températures",
-        "Répondre aux besoins de locaux spécifiques (serveurs, ERP)",
-        "Maîtriser la consommation énergétique du rafraîchissement",
-        "S'intégrer dans l'architecture et l'acoustique du bâtiment",
-      ],
-      equipements: [
-        "Splits et multi-splits",
-        "Systèmes DRV / VRV",
-        "Unités intérieures et groupes extérieurs",
-        "Réseaux frigorifiques et évacuation des condensats",
-        "Régulation et gestion centralisée",
-      ],
-      vigilance: [
-        "Dimensionnement des puissances frigorifiques",
-        "Évacuation fiable des condensats",
-        "Contraintes acoustiques des unités extérieures",
-        "Intégration architecturale et accessibilité",
-        "Choix des fluides frigorigènes (réglementation F-Gas)",
-      ],
-      erreurs: [
-        "Sous-dimensionnement ou surdimensionnement des unités",
-        "Évacuation des condensats négligée, source de désordres",
-        "Nuisances sonores des groupes extérieurs mal anticipées",
-        "Implantation des unités sans concertation architecturale",
-      ],
-    },
-  },
-  {
-    slug: "plomberie-sanitaire",
-    title: "Plomberie sanitaire",
-    guideTitle: "Guide technique plomberie sanitaire",
-    desc: "Comprendre les réseaux d'eau froide, d'eau chaude sanitaire, les évacuations EU/EV, les pressions de service, les diamètres de canalisations, le calorifugeage et les protections sanitaires.",
-    cta: "Lire le guide plomberie",
-    intro:
-      "La plomberie sanitaire regroupe les réseaux d'eau froide, d'eau chaude sanitaire et d'évacuation. Elle doit garantir la sécurité sanitaire, la pression disponible, le bon dimensionnement des canalisations et la facilité de maintenance.",
+      "La plomberie sanitaire constitue un lot essentiel au bon fonctionnement d'un bâtiment. Elle assure l'alimentation en eau froide, la production et la distribution d'eau chaude sanitaire, l'évacuation des eaux usées et eaux vannes, l'évacuation des eaux pluviales, ainsi que la protection sanitaire des réseaux.",
+    tags: ["Plomberie sanitaire", "Eau froide", "ECS", "Bouclage ECS", "EU / EV", "EP"],
     Icon: IconPlomberie,
     detail: {
       definition:
-        "La plomberie sanitaire comprend la distribution d'eau froide et chaude sanitaire et l'évacuation des eaux usées et vannes. Sa conception garantit l'hygiène, la pression aux points de puisage et la conformité aux normes et DTU.",
+        "La plomberie sanitaire comprend la distribution d'eau froide, la production et la distribution d'eau chaude sanitaire (ECS) avec bouclage, et l'évacuation des eaux usées et vannes. Sa conception garantit l'hygiène, la pression aux points de puisage, la maîtrise du risque légionelle et la conformité aux DTU.",
       role: [
-        "Garantir la sécurité et l'hygiène sanitaire de l'eau",
-        "Assurer pression et débit aux points de puisage",
+        "Alimenter les points d'eau en eau froide et eau chaude sanitaire",
+        "Produire et boucler l'ECS en maîtrisant le risque sanitaire",
         "Évacuer les eaux usées et vannes de façon fiable",
-        "Faciliter l'exploitation et la maintenance des réseaux",
+        "Protéger le réseau d'eau potable et faciliter la maintenance",
       ],
       equipements: [
-        "Réseaux d'eau froide sanitaire (EFS)",
-        "Réseaux d'eau chaude sanitaire (ECS)",
-        "Évacuations EU / EV et ventilations primaires",
-        "Surpresseurs et réducteurs de pression",
-        "Appareils sanitaires et robinetterie",
+        "Réseaux d'eau froide sanitaire (EFS) et comptage",
+        "Production ECS : ballons, échangeurs, préparateurs",
+        "Réseaux de bouclage ECS, circulateurs, vannes d'équilibrage",
+        "Évacuations EU / EV, ventilations primaires, appareils sanitaires",
+        "Disconnecteurs, clapets et dispositifs de protection sanitaire",
       ],
       vigilance: [
         "Dimensionnement selon EN 12056 et DTU 60.11",
-        "Pressions de service et équilibrage des réseaux",
-        "Calorifugeage des canalisations",
-        "Protections sanitaires (disconnecteurs, clapets)",
-        "Limitation des bruits d'écoulement et coups de bélier",
+        "Maintien en température et équilibrage du bouclage ECS",
+        "Prévention du risque légionelle et des brûlures (mitigeage)",
+        "Calorifugeage des canalisations et limitation des pertes",
+        "Protections sanitaires (disconnecteurs, clapets), coups de bélier",
       ],
       erreurs: [
         "Diamètres inadaptés générant bruit ou manque de pression",
-        "Calorifugeage insuffisant et pertes thermiques",
+        "Bouclage ECS mal équilibré, zones froides propices aux légionelles",
+        "Production et stockage ECS sous-dimensionnés",
         "Absence de protection contre les retours d'eau",
-        "Coups de bélier non traités",
       ],
     },
   },
   {
-    slug: "eau-chaude-sanitaire",
-    title: "Eau chaude sanitaire — ECS",
-    guideTitle: "Guide technique eau chaude sanitaire",
-    desc: "Comprendre la production et la distribution d'eau chaude sanitaire : ballons, échangeurs, préparateurs ECS, bouclage, mitigeurs thermostatiques, températures de service et sécurité sanitaire.",
-    cta: "Lire le guide ECS",
+    slug: "thermique-performance-energetique",
+    title: "Guide Thermique Du Bâtiment",
+    guideTitle: "Guide thermique du bâtiment, déperditions & performance énergétique",
+    desc: "Comprendre les études thermiques appliquées au bâtiment : calculs de déperditions, dimensionnement des émetteurs, NF EN 12831, RE2020, RT Existant, simulation thermique dynamique, confort d'été, analyse de l'enveloppe, ponts thermiques et scénarios de rénovation énergétique. Ce guide aide à relier performance énergétique, confort et cohérence des systèmes techniques.",
+    cta: "Consulter le guide thermique",
     intro:
-      "L'eau chaude sanitaire concerne la production, le stockage, la distribution et le bouclage de l'ECS. Sa conception doit prendre en compte le confort des usagers, les températures de service, les pertes thermiques et la prévention du risque légionelle.",
-    Icon: IconECS,
-    detail: {
-      definition:
-        "L'eau chaude sanitaire (ECS) recouvre la production, le stockage et la distribution d'eau chaude pour les usages sanitaires. Sa conception vise le confort, la maîtrise des températures et la prévention du risque légionelle.",
-      role: [
-        "Fournir une eau chaude disponible et confortable",
-        "Maîtriser le risque sanitaire (légionelle)",
-        "Limiter les pertes thermiques de distribution",
-        "Optimiser la production et le stockage",
-      ],
-      equipements: [
-        "Ballons de stockage et préparateurs ECS",
-        "Échangeurs à plaques",
-        "Réseaux de bouclage départ / retour",
-        "Mitigeurs thermostatiques",
-        "Circulateurs de bouclage",
-      ],
-      vigilance: [
-        "Maintien en température de l'ensemble du bouclage",
-        "Prévention du risque légionelle",
-        "Équilibrage du réseau de bouclage",
-        "Limitation des pertes thermiques",
-        "Acoustique des circulateurs",
-      ],
-      erreurs: [
-        "Bouclage mal équilibré et zones froides propices aux légionelles",
-        "Stockage et production sous-dimensionnés",
-        "Calorifugeage insuffisant du réseau ECS",
-        "Absence de mitigeage et risque de brûlure",
-      ],
-    },
-  },
-  {
-    slug: "thermique-du-batiment",
-    title: "Thermique du bâtiment",
-    guideTitle: "Guide technique thermique du bâtiment",
-    desc: "Découvrir les déperditions thermiques, l'isolation, les ponts thermiques, les apports internes et solaires, le confort d'hiver, le confort d'été et le calcul de puissance.",
-    cta: "Lire le guide thermique",
-    intro:
-      "La thermique du bâtiment permet d'évaluer les déperditions, les apports, l'isolation et les besoins énergétiques. Elle constitue une base essentielle pour dimensionner correctement les équipements techniques.",
+      "La thermique du bâtiment permet de comprendre, quantifier et optimiser les échanges de chaleur entre un bâtiment et son environnement. La performance énergétique repose sur une approche globale : enveloppe, isolation, ponts thermiques, ventilation, apports solaires, inertie, systèmes et régulation, en neuf comme en rénovation.",
+    tags: ["Déperditions", "NF EN 12831", "RE2020", "RT Existant", "STD", "Performance énergétique"],
     Icon: IconThermique,
     detail: {
       definition:
-        "La thermique du bâtiment étudie les échanges de chaleur entre le bâtiment et son environnement : déperditions, apports solaires et internes, inertie et isolation. Elle fonde le dimensionnement des installations de chauffage et de rafraîchissement.",
+        "La thermique du bâtiment étudie les échanges de chaleur entre le bâtiment et son environnement : déperditions, apports solaires et internes, inertie et isolation. La performance énergétique vise à réduire les consommations en combinant qualité de l'enveloppe, systèmes performants, régulation et suivi des consommations.",
       role: [
         "Évaluer les besoins de chauffage et de rafraîchissement",
-        "Optimiser l'isolation et limiter les ponts thermiques",
-        "Garantir le confort d'hiver et d'été",
-        "Fournir une base fiable au dimensionnement des équipements",
+        "Calculer les déperditions et dimensionner les émetteurs",
+        "Optimiser l'enveloppe et limiter les ponts thermiques",
+        "Garantir le confort d'hiver et d'été tout en réduisant les consommations",
       ],
       equipements: [
-        "Enveloppe : parois, menuiseries, isolation",
-        "Traitement des ponts thermiques",
-        "Protections solaires",
-        "Inertie thermique du bâti",
-        "Outils de calcul et de simulation (STD)",
+        "Enveloppe : parois, menuiseries, isolation, protections solaires",
+        "Outils de calcul de déperditions (NF EN 12831) et de STD",
+        "Systèmes performants (PAC, récupération d'énergie)",
+        "Régulation, GTB / GTC et comptage énergétique",
+        "Traitement des ponts thermiques et de l'inertie",
       ],
       vigilance: [
-        "Calcul des déperditions selon NF EN 12831",
-        "Prise en compte des apports internes et solaires",
-        "Traitement des ponts thermiques",
-        "Confort d'été et limitation des surchauffes",
-        "Cohérence entre calculs et équipements installés",
+        "Calcul des déperditions selon NF EN 12831 et hypothèses réalistes",
+        "Analyse réglementaire adaptée (RE2020 en neuf, RT Existant en rénovation)",
+        "Confort d'été et limitation des surchauffes (STD)",
+        "Cohérence enveloppe / systèmes / régulation",
+        "Priorisation des travaux et suivi réel des consommations",
       ],
       erreurs: [
         "Hypothèses de calcul inadaptées au bâtiment réel",
-        "Ponts thermiques négligés",
+        "Ponts thermiques négligés et risques de condensation",
         "Confort d'été oublié dans la conception",
-        "Surdimensionnement des équipements par excès de sécurité",
+        "Remplacer un équipement sans traiter l'enveloppe ni la régulation",
       ],
     },
   },
   {
-    slug: "performance-energetique",
-    title: "Performance énergétique",
-    guideTitle: "Guide technique performance énergétique",
-    desc: "Comprendre les leviers d'optimisation énergétique : rénovation thermique, remplacement des équipements, récupération d'énergie, comptage, régulation, GTB/GTC et amélioration du rendement global.",
-    cta: "Lire le guide énergie",
+    slug: "genie-electrique-regulation-gtb-gtc",
+    title: "Guide Electricité CFO/CFA",
+    guideTitle: "Guide génie électrique, régulation, GTB & GTC",
+    desc: "Comprendre les interfaces électriques et de régulation des équipements techniques du bâtiment : CFO/CFA, armoires électriques CVC, automatismes, régulation chauffage, ventilation, climatisation, production ECS, GTB, GTC, télégestion, comptage énergétique, reports d'alarme, listes de points et synoptiques. Ce guide présente les éléments nécessaires à une exploitation fiable, lisible et maintenable.",
+    cta: "Consulter le guide GTB / GTC",
     intro:
-      "La performance énergétique vise à réduire les consommations tout en maintenant le confort et la qualité d'usage. Elle repose sur l'optimisation de l'enveloppe, des systèmes techniques, de la régulation et du suivi des consommations.",
-    Icon: IconPerformance,
-    detail: {
-      definition:
-        "La performance énergétique d'un bâtiment mesure sa capacité à assurer le confort et les usages avec un minimum d'énergie. Elle s'améliore par une approche globale combinant enveloppe, systèmes, régulation et suivi.",
-      role: [
-        "Réduire durablement les consommations",
-        "Maintenir le confort et la qualité d'usage",
-        "Valoriser le patrimoine bâti",
-        "Maîtriser les coûts d'exploitation",
-      ],
-      equipements: [
-        "Systèmes performants (PAC, récupération d'énergie)",
-        "Régulation et GTB / GTC",
-        "Comptage et sous-comptage énergétique",
-        "Isolation et amélioration de l'enveloppe",
-        "Pilotage et programmation",
-      ],
-      vigilance: [
-        "Approche globale enveloppe / systèmes",
-        "Priorisation des travaux selon le retour sur investissement",
-        "Qualité de la régulation et du pilotage",
-        "Suivi réel des consommations",
-        "Cohérence des scénarios de rénovation",
-      ],
-      erreurs: [
-        "Remplacer un équipement sans traiter l'enveloppe",
-        "Régulation mal paramétrée annulant les gains",
-        "Absence de suivi des consommations après travaux",
-        "Travaux non priorisés et budget mal employé",
-      ],
-    },
-  },
-  {
-    slug: "genie-electrique",
-    title: "Génie électrique",
-    guideTitle: "Guide technique génie électrique",
-    desc: "Comprendre l'alimentation électrique des équipements techniques du bâtiment : protections, puissances disponibles, armoires électriques, raccordements des CTA, pompes, PAC, ballons et extracteurs.",
-    cta: "Lire le guide génie électrique",
-    intro:
-      "Le génie électrique permet d'assurer l'alimentation, la protection et le raccordement des équipements techniques du bâtiment : pompes, CTA, PAC, ballons, extracteurs, armoires et dispositifs de régulation.",
+      "Le génie électrique appliqué aux installations techniques permet d'alimenter, protéger, commander et superviser les équipements CVC, plomberie, production thermique, ventilation, climatisation et ECS. La régulation, la GTB et la GTC adaptent le fonctionnement aux besoins réels et optimisent l'exploitation.",
+    tags: ["CFO / CFA", "Régulation", "GTB", "GTC", "Télégestion", "Comptage"],
     Icon: IconElectricite,
     detail: {
       definition:
-        "Le génie électrique appliqué aux lots techniques assure l'alimentation, la protection et le raccordement des équipements CVC et fluides. Il garantit la sécurité, la conformité et la cohérence entre puissances disponibles et besoins.",
+        "Le génie électrique appliqué aux lots techniques assure l'alimentation, la protection et le raccordement des équipements CVC et fluides. La régulation pilote localement les installations, tandis que la GTB (gestion technique du bâtiment) et la GTC (gestion technique centralisée) supervisent l'ensemble pour optimiser le fonctionnement et l'exploitation.",
       role: [
-        "Alimenter et protéger les équipements techniques",
-        "Garantir la sécurité des personnes et des biens",
-        "Assurer la conformité normative des installations",
-        "Coordonner les besoins électriques avec les autres lots",
+        "Alimenter, protéger et commander les équipements techniques",
+        "Réguler le chauffage, la ventilation, la climatisation et l'ECS",
+        "Superviser, suivre les alarmes et piloter via GTB / GTC",
+        "Optimiser les consommations et faciliter l'exploitation",
       ],
       equipements: [
-        "Armoires et tableaux électriques",
-        "Protections et dispositifs différentiels",
-        "Alimentations des CTA, pompes, PAC, ballons, extracteurs",
-        "Réseaux courants forts et courants faibles",
-        "Asservissements et report d'alarmes",
+        "Armoires électriques techniques (CFO / CFA)",
+        "Régulateurs, automates, sondes et actionneurs",
+        "Vannes et registres motorisés, circulateurs à vitesse variable",
+        "Superviseur GTB / GTC, listes de points, synoptiques",
+        "Compteurs énergétiques, télégestion et reports d'alarme",
       ],
       vigilance: [
-        "Bilan de puissance et puissances disponibles",
-        "Sélectivité et coordination des protections",
-        "Conformité NF C 15-100 et NF C 13-100/200",
-        "Coordination avec les lots techniques (CVC, plomberie)",
-        "Locaux techniques et contraintes associées",
+        "Bilan de puissance, sélectivité et coordination des protections",
+        "Définition claire des lois d'eau, consignes et chaînes de sécurité",
+        "Qualité de la liste de points et des synoptiques GTB / GTC",
+        "Interopérabilité des protocoles (BACnet, Modbus)",
+        "Hiérarchisation des alarmes et suivi énergétique exploitable",
       ],
       erreurs: [
         "Puissances disponibles insuffisantes pour les équipements",
-        "Protections mal coordonnées",
-        "Asservissements CVC / électricité oubliés",
-        "Manque de coordination entre lots en phase chantier",
-      ],
-    },
-  },
-  {
-    slug: "regulation-gtb-gtc",
-    title: "Régulation / GTB / GTC",
-    guideTitle: "Guide technique régulation, GTB et GTC",
-    desc: "Comprendre le rôle de la régulation et de la supervision technique : sondes, automates, vannes motorisées, lois d'eau, programmation horaire, remontées d'alarmes et suivi énergétique.",
-    cta: "Lire le guide régulation",
-    intro:
-      "La régulation, la GTB et la GTC permettent de piloter, superviser et optimiser les installations techniques. Elles participent à la performance énergétique, au confort, à la maintenance et au suivi des alarmes.",
-    Icon: IconHydraulique,
-    detail: {
-      definition:
-        "La régulation pilote localement les installations techniques, tandis que la GTB (gestion technique du bâtiment) et la GTC (gestion technique centralisée) supervisent l'ensemble des équipements pour optimiser leur fonctionnement.",
-      role: [
-        "Piloter finement les installations techniques",
-        "Optimiser la performance énergétique",
-        "Améliorer le confort et la réactivité",
-        "Faciliter la maintenance et le suivi des alarmes",
-      ],
-      equipements: [
-        "Sondes et capteurs (température, CO₂, pression)",
-        "Automates et régulateurs",
-        "Vannes et registres motorisés",
-        "Superviseur GTB / GTC",
-        "Compteurs et sous-compteurs",
-      ],
-      vigilance: [
-        "Définition claire des lois d'eau et consignes",
-        "Programmation horaire adaptée aux usages",
-        "Remontées d'alarmes pertinentes et hiérarchisées",
-        "Interopérabilité des protocoles (BACnet, Modbus)",
-        "Suivi énergétique exploitable",
-      ],
-      erreurs: [
         "Régulation mal paramétrée annulant les économies attendues",
         "Trop d'alarmes non hiérarchisées, ignorées par l'exploitant",
-        "Absence de suivi énergétique réel",
-        "Protocoles incompatibles entre équipements",
+        "Protocoles incompatibles et interfaces mal définies",
       ],
     },
   },
@@ -390,6 +277,16 @@ export function getGuideBySlug(slug: string): Guide | undefined {
   return guides.find((g) => g.slug === slug);
 }
 
+/** Redirections des anciens slugs de guides vers les 6 guides fusionnés. */
+export const guideRedirects: Record<string, string> = {
+  "plomberie-sanitaire": "plomberie-sanitaire-ecs",
+  "eau-chaude-sanitaire": "plomberie-sanitaire-ecs",
+  "thermique-du-batiment": "thermique-performance-energetique",
+  "performance-energetique": "thermique-performance-energetique",
+  "genie-electrique": "genie-electrique-regulation-gtb-gtc",
+  "regulation-gtb-gtc": "genie-electrique-regulation-gtb-gtc",
+};
+
 export interface FaqItem {
   q: string;
   a: string;
@@ -397,35 +294,43 @@ export interface FaqItem {
 
 export const faq: FaqItem[] = [
   {
-    q: "Quel est le rôle d'un bureau d'études CVC ?",
-    a: "Un bureau d'études CVC conçoit et dimensionne les installations de chauffage, ventilation et climatisation : il définit les puissances, sélectionne les équipements, établit les plans et notes de calcul, rédige les pièces écrites (CCTP, DPGF) et accompagne le projet jusqu'à la réception des ouvrages.",
+    q: "Quelle est la différence entre une chaufferie gaz et une sous-station de chauffage urbain ?",
+    a:
+      "Une chaufferie gaz produit la chaleur par combustion sur site (chaudières, brûleurs, alimentation gaz, fumisterie). Une sous-station ne produit pas de chaleur : elle transfère l'énergie d'un réseau de chaleur urbain vers les réseaux du bâtiment au moyen d'échangeurs, sans combustion.",
   },
   {
-    q: "Pourquoi réaliser un calcul de déperditions ?",
-    a: "Le calcul de déperditions (selon NF EN 12831) détermine la puissance de chauffage nécessaire à chaque local. Il évite le surdimensionnement, source de surcoût et d'inconfort, et garantit que les équipements installés correspondent réellement aux besoins du bâtiment.",
+    q: "OSARIS Ingénierie intervient-il en rénovation comme en neuf ?",
+    a:
+      "Oui. Nous intervenons en bâtiment neuf dès la conception, et en rénovation sur la base d'un diagnostic de l'existant, en tenant compte des contraintes de site, de phasage et de continuité de service.",
   },
   {
-    q: "Quelle est la différence entre une VMC simple flux et une ventilation double flux ?",
-    a: "La VMC simple flux extrait l'air vicié et fait entrer l'air neuf par des entrées d'air. La ventilation double flux récupère la chaleur de l'air extrait pour préchauffer l'air entrant via un échangeur, améliorant le confort et réduisant les déperditions liées au renouvellement d'air.",
+    q: "Réalisez-vous des études d'exécution pour les entreprises ?",
+    a:
+      "Oui. Au-delà de la conception pour les maîtres d'ouvrage, nous accompagnons les entreprises titulaires en phase d'exécution : plans, schémas, notes de calcul, synoptiques, listes de points et préparation du DOE.",
   },
   {
-    q: "À quoi sert un bouclage ECS ?",
-    a: "Le bouclage maintient l'eau chaude sanitaire en circulation permanente dans le réseau, garantissant une eau chaude immédiate aux points de puisage et limitant le développement des légionelles en maintenant une température suffisante sur l'ensemble du réseau.",
+    q: "Quels livrables produisez-vous ?",
+    a:
+      "Selon la mission : notes de calcul et dimensionnements, schémas de principe, plans techniques, pièces écrites (CCTP, DPGF), rapports d'essais et d'équilibrage, et éléments de DOE.",
   },
   {
-    q: "Pourquoi l'équilibrage hydraulique est-il important ?",
-    a: "L'équilibrage répartit correctement les débits d'eau entre les différents émetteurs ou circuits. Sans équilibrage, certains locaux sont surchauffés et d'autres sous-chauffés ; un réseau équilibré assure le confort, optimise le rendement et réduit les consommations.",
+    q: "Comment est assurée la qualité d'air intérieur dans vos études de ventilation ?",
+    a:
+      "Par un dimensionnement adapté aux usages et à l'occupation, des débits maîtrisés, une régulation cohérente (horaires, sondes CO₂ ou hygrométrie) et une attention à l'entretien des filtres et au nettoyage des réseaux.",
   },
   {
-    q: "Qu'est-ce qu'un DCE technique ?",
-    a: "Le Dossier de Consultation des Entreprises (DCE) rassemble les pièces techniques permettant aux entreprises de chiffrer les travaux : CCTP (clauses techniques), DPGF (décomposition de prix), plans et schémas. C'est le document de référence pour la consultation et la passation des marchés.",
+    q: "Vos calculs de déperditions suivent-ils une norme ?",
+    a:
+      "Lorsque la mission le nécessite, nos calculs de déperditions sont réalisés selon la NF EN 12831, pièce par pièce, pour dimensionner émetteurs, réseaux et générateurs.",
   },
   {
-    q: "Pourquoi intégrer le génie électrique dans les études CVC ?",
-    a: "Les équipements CVC (PAC, CTA, pompes, ballons, extracteurs) nécessitent une alimentation électrique dimensionnée et protégée. Intégrer le génie électrique dès la conception garantit la cohérence des puissances, des protections et des raccordements, et évite les reprises en phase chantier.",
+    q: "Qu'apporte une GTB ou une GTC à l'exploitation ?",
+    a:
+      "Elles centralisent la supervision, les alarmes et le comptage, facilitent le pilotage horaire et par zone, et permettent un suivi énergétique pour identifier les dérives et optimiser l'exploitation.",
   },
   {
-    q: "Quels sont les points de vigilance pour une pompe à chaleur en rénovation ?",
-    a: "En rénovation, il faut vérifier la compatibilité du régime d'eau avec les émetteurs existants, l'équilibrage du réseau, le dimensionnement réaliste selon les déperditions, l'intégration acoustique de l'unité extérieure et, souvent, une solution d'appoint ou hybride pour les périodes les plus froides.",
+    q: "Comment vous contacter pour une étude ?",
+    a:
+      "Via la page contact du site. Nous étudions chaque projet selon ses contraintes propres, du diagnostic à la réception technique.",
   },
 ];
